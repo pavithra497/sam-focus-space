@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>S@m — Focus Space</title>
+
+<style>
+
+/* =========================================================
+   🍒 S@m — DARK CHERRY THEME
+
+   CHANGE THESE COLORS TO CUSTOMIZE THE LOOK
+   ========================================================= */
+
+:root {
+  --bg: #170b0e;
+  --bg-2: #210e13;
+
+  --cherry: #9f3045;
+  --cherry-light: #d15a6c;
+  --cherry-glow: rgba(209, 90, 108, 0.35);
+
+  --cream: #f6e9df;
+  --cream-soft: #cdb9b5;
+
+  --card: rgba(45, 19, 25, 0.78);
+  --card-light: rgba(255,255,255,0.045);
+
+  --line: rgba(246,233,223,0.1);
+
+  --shadow: rgba(0,0,0,0.45);
+}
+
+
+/* =========================================================
+   ⏱️ CHANGE TIMES HERE
+   ========================================================= */
+
+:root {
+  --focus-minutes: 25;
+  --break-minutes: 5;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+
+  color: var(--cream);
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(159,48,69,0.20),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(111,27,43,0.22),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      var(--bg),
+      var(--bg-2)
+    );
+
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   ✦ STAR / SPARKLE BACKGROUND
+   ========================================================= */
+
+.stars,
+.stars::before,
+.stars::after {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-repeat: repeat;
+
+  z-index: 0;
+}
+
+.stars {
+  opacity: 0.55;
+
+  background-image:
+    radial-gradient(circle, #f6e9df 1px, transparent 1px);
+
+  background-size: 95px 95px;
+}
+
+.stars::before {
+  content: "";
+
+  opacity: 0.45;
+
+  background-image:
+    radial-gradient(circle, #d15a6c 1px, transparent 1px);
+
+  background-size: 150px 150px;
+
+  background-position: 30px 60px;
+}
+
+.stars::after {
+  content: "";
+
+  opacity: 0.35;
+
+  background-image:
+    radial-gradient(circle, #f6e9df 1.5px, transparent 1.5px);
+
+  background-size: 220px 220px;
+
+  background-position: 90px 20px;
+}
+
+
+/* Individual floating sparkles */
+
+.sparkle {
+  position: fixed;
+
+  color: var(--cream);
+
+  opacity: 0.35;
+
+  font-size: 14px;
+
+  animation: sparkleFloat 5s ease-in-out infinite;
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+.s1 {
+  top: 13%;
+  left: 8%;
+}
+
+.s2 {
+  top: 20%;
+  right: 13%;
+  animation-delay: 1s;
+}
+
+.s3 {
+  bottom: 18%;
+  left: 15%;
+  animation-delay: 2s;
+}
+
+.s4 {
+  bottom: 12%;
+  right: 8%;
+  animation-delay: 3s;
+}
+
+.s5 {
+  top: 48%;
+  left: 4%;
+  animation-delay: 1.5s;
+}
+
+.s6 {
+  top: 65%;
+  right: 5%;
+  animation-delay: 2.5s;
+}
+
+@keyframes sparkleFloat {
+
+  0%, 100% {
+    opacity: 0.2;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 0.65;
+    transform: translateY(-10px) scale(1.15);
+  }
+
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.page {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(1250px, 94%);
+
+  min-height: 100vh;
+
+  margin: auto;
+
+  padding: 45px 0;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.topbar {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 35px;
+}
+
+
+/* BIG BRAND */
+
+.brand {
+
+  font-family: Arial, sans-serif;
+
+  font-size: clamp(3rem, 5vw, 5rem);
+
+  font-weight: 800;
+
+  letter-spacing: -5px;
+
+  line-height: 0.8;
+
+  color: var(--cream);
+
+  text-shadow:
+    0 0 35px rgba(209,90,108,0.18);
+}
+
+.brand .at {
+  color: var(--cherry-light);
+}
+
+
+/* Date */
+
+.date {
+
+  text-align: right;
+
+  color: var(--cream-soft);
+
+  font-family: Arial, sans-serif;
+}
+
+.day {
+
+  color: var(--cream);
+
+  font-size: 0.85rem;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 5px;
+}
+
+.full-date {
+
+  font-size: 0.75rem;
+
+  opacity: 0.65;
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard {
+
+  flex: 1;
+
+  display: grid;
+
+  grid-template-columns: 0.75fr 1.5fr 0.75fr;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.055),
+      rgba(255,255,255,0.018)
+    );
+
+  border: 1px solid var(--line);
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 30px 80px var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
+  backdrop-filter: blur(20px);
+}
+
+
+/* =========================================================
+   LEFT SIDE — TODAY'S FOCUS
+   ========================================================= */
+
+.focus-card {
+
+  padding: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.small-label {
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.65rem;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  color: var(--cherry-light);
+
+  text-transform: uppercase;
+
+  margin-bottom: 18px;
+}
+
+.focus-title {
+
+  font-size: 1.7rem;
+
+  line-height: 1.2;
+
+  margin-bottom: 20px;
+}
+
+.focus-subtitle {
+
+  color: var(--cream-soft);
+
+  font-size: 0.85rem;
+
+  line-height: 1.7;
+}
+
+
+/* Editable focus */
+
+.focus-input {
+
+  width: 100%;
+
+  margin-top: 25px;
+
+  padding: 16px;
+
+  border-radius: 16px;
+
+  border: 1px solid var(--line);
+
+  outline: none;
+
+  resize: none;
+
+  min-height: 105px;
+
+  background: rgba(0,0,0,0.15);
+
+  color: var(--cream);
+
+  font-family: Georgia, serif;
+
+  font-size: 0.9rem;
+
+  line-height: 1.5;
+
+  transition: 0.25s;
+}
+
+.focus-input::placeholder {
+
+  color: var(--cream-soft);
+
+  opacity: 0.45;
+}
+
+.focus-input:focus {
+
+  border-color: var(--cherry-light);
+
+  box-shadow:
+    0 0 0 3px rgba(209,90,108,0.08);
+}
+
+
+/* Focus reminder */
+
+.focus-reminder {
+
+  margin-top: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--line);
+
+  color: var(--cream-soft);
+
+  font-size: 0.78rem;
+
+  line-height: 1.6;
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   CENTER — TIMER
+   ========================================================= */
+
+.timer-card {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 35px 30px;
+
+  position: relative;
+}
+
+
+/* Mode selector */
+
+.modes {
+
+  display: flex;
+
+  gap: 5px;
+
+  padding: 5px;
+
+  border-radius: 50px;
+
+  background: rgba(0,0,0,0.18);
+
+  border: 1px solid var(--line);
+
+  margin-bottom: 25px;
+}
+
+.mode-btn {
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--cream-soft);
+
+  padding: 9px 18px;
+
+  border-radius: 50px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.68rem;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.mode-btn.active {
+
+  color: white;
+
+  background: var(--cherry);
+
+  box-shadow:
+    0 7px 22px rgba(159,48,69,0.3);
+}
+
+
+/* Timer circle */
+
+.timer-container {
+
+  width: min(390px, 32vw);
+
+  min-width: 280px;
+
+  aspect-ratio: 1;
+
+  position: relative;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin-bottom: 22px;
+}
+
+
+/* SVG */
+
+.progress-ring {
+
+  position: absolute;
+
+  width: 100%;
+
+  height: 100%;
+
+  transform: rotate(-90deg);
+
+  filter:
+    drop-shadow(0 0 8px var(--cherry-glow));
+}
+
+.progress-background {
+
+  fill: none;
+
+  stroke: rgba(246,233,223,0.08);
+
+  stroke-width: 2;
+}
+
+.progress-bar {
+
+  fill: none;
+
+  stroke: var(--cherry-light);
+
+  stroke-width: 3.5;
+
+  stroke-linecap: round;
+
+  transition:
+    stroke-dashoffset 1s linear;
+}
+
+
+/* Timer */
+
+.timer {
+
+  font-family: Arial, sans-serif;
+
+  font-size: clamp(5rem, 9vw, 8rem);
+
+  font-weight: 200;
+
+  letter-spacing: -7px;
+
+  color: var(--cream);
+
+  line-height: 1;
+
+  text-shadow:
+    0 0 40px rgba(246,233,223,0.08);
+}
+
+
+/* Message */
+
+.message {
+
+  min-height: 52px;
+
+  max-width: 480px;
+
+  text-align: center;
+
+  color: var(--cream-soft);
+
+  font-size: 0.9rem;
+
+  line-height: 1.7;
+
+  font-style: italic;
+
+  margin-bottom: 22px;
+
+  transition: opacity 0.3s;
+}
+
+
+/* Buttons */
+
+.controls {
+
+  display: flex;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.control {
+
+  border: none;
+
+  padding: 12px 23px;
+
+  border-radius: 50px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.start {
+
+  background: var(--cherry);
+
+  color: white;
+
+  box-shadow:
+    0 9px 25px rgba(159,48,69,0.3);
+}
+
+.start:hover {
+
+  background: var(--cherry-light);
+
+  transform: translateY(-2px);
+}
+
+.secondary {
+
+  background: rgba(255,255,255,0.055);
+
+  border: 1px solid var(--line);
+
+  color: var(--cream-soft);
+}
+
+.secondary:hover {
+
+  background: rgba(255,255,255,0.09);
+
+  color: var(--cream);
+
+  transform: translateY(-2px);
+}
+
+
+/* Session */
+
+.session-info {
+
+  display: flex;
+
+  gap: 13px;
+
+  align-items: center;
+
+  color: var(--cream-soft);
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.62rem;
+
+  letter-spacing: 1.5px;
+}
+
+.session-info b {
+
+  color: var(--cherry-light);
+}
+
+.divider {
+
+  width: 3px;
+
+  height: 3px;
+
+  background: var(--cream-soft);
+
+  border-radius: 50%;
+
+  opacity: 0.5;
+}
+
+
+/* =========================================================
+   RIGHT — LITTLE DETAILS
+   ========================================================= */
+
+.side-card {
+
+  padding: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+
+/* Quote */
+
+.quote {
+
+  font-size: 1.35rem;
+
+  line-height: 1.45;
+}
+
+.quote-mark {
+
+  display: block;
+
+  font-size: 3rem;
+
+  line-height: 0.5;
+
+  color: var(--cherry-light);
+
+  margin-bottom: 18px;
+}
+
+
+/* Mini stats */
+
+.stats {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.stat {
+
+  padding: 15px;
+
+  border-radius: 18px;
+
+  background: rgba(0,0,0,0.13);
+
+  border: 1px solid var(--line);
+}
+
+.stat-label {
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.6rem;
+
+  letter-spacing: 1.5px;
+
+  color: var(--cream-soft);
+
+  text-transform: uppercase;
+
+  margin-bottom: 5px;
+}
+
+.stat-value {
+
+  color: var(--cream);
+
+  font-size: 1.05rem;
+}
+
+
+/* Footer */
+
+.footer {
+
+  text-align: center;
+
+  margin-top: 20px;
+
+  color: var(--cream-soft);
+
+  opacity: 0.45;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.6rem;
+
+  letter-spacing: 3px;
+
+  text-transform: lowercase;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+  .page {
+
+    width: min(700px, 94%);
+
+  }
+
+  .dashboard {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+  .timer-card {
+
+    grid-column: span 2;
+
+    min-height: 650px;
+
+  }
+
+  .timer-container {
+
+    width: min(400px, 60vw);
+
+  }
+
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  body {
+
+    padding: 0;
+
+  }
+
+  .page {
+
+    width: 100%;
+
+    padding: 25px 15px;
+
+  }
+
+  .topbar {
+
+    align-items: flex-start;
+
+    margin-bottom: 25px;
+
+  }
+
+  .brand {
+
+    font-size: 3.2rem;
+
+    letter-spacing: -3px;
+
+  }
+
+  .date {
+
+    padding-top: 5px;
+
+  }
+
+  .dashboard {
+
+    display: flex;
+
+    flex-direction: column;
+
+  }
+
+  .focus-card,
+  .side-card {
+
+    min-height: 250px;
+
+  }
+
+  .timer-card {
+
+    order: -1;
+
+    min-height: 570px;
+
+    padding: 30px 15px;
+
+  }
+
+  .timer-container {
+
+    width: min(310px, 78vw);
+
+    min-width: 0;
+
+  }
+
+  .timer {
+
+    font-size: 5rem;
+
+  }
+
+  .controls {
+
+    width: 100%;
+
+    justify-content: center;
+
+  }
+
+  .control {
+
+    flex: 1;
+
+    padding: 12px 12px;
+
+  }
+
+  .sparkle {
+
+    display: none;
+
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     ✦ BACKGROUND
+     ======================================================= -->
+
+<div class="stars"></div>
+
+<div class="sparkle s1">✦</div>
+<div class="sparkle s2">✧</div>
+<div class="sparkle s3">✦</div>
+<div class="sparkle s4">✧</div>
+<div class="sparkle s5">·</div>
+<div class="sparkle s6">✦</div>
+
+
+
+<div class="page">
+
+
+  <!-- =====================================================
+       TOP BAR
+       ===================================================== -->
+
+  <header class="topbar">
+
+    <div class="brand">
+      S<span class="at">@</span>m
+    </div>
+
+    <div class="date">
+
+      <div
+        class="day"
+        id="day">
+      </div>
+
+      <div
+        class="full-date"
+        id="fullDate">
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       DASHBOARD
+       ===================================================== -->
+
+  <main class="dashboard">
+
+
+    <!-- ===================================================
+         TODAY'S FOCUS
+         =================================================== -->
+
+    <section class="card focus-card">
+
+      <div>
+
+        <div class="small-label">
+          Today's Focus
+        </div>
+
+        <h2 class="focus-title">
+          What matters today?
+        </h2>
+
+        <p class="focus-subtitle">
+          Keep it simple.
+          Choose one thing and give it your attention.
+        </p>
+
+
+        <textarea
+          id="focusInput"
+          class="focus-input"
+          placeholder="e.g. Finish my science notes..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="focus-reminder">
+
+        ✦ You don't need a perfect day.
+        You just need a meaningful one.
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         TIMER
+         =================================================== -->
+
+    <section class="card timer-card">
+
+
+      <!-- Modes -->
+
+      <div class="modes">
+
+        <button
+          class="mode-btn active"
+          id="focusModeBtn">
+
+          Focus
+
+        </button>
+
+        <button
+          class="mode-btn"
+          id="breakModeBtn">
+
+          Break
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Circular timer -->
+
+      <div class="timer-container">
+
+        <svg
+          class="progress-ring"
+          viewBox="0 0 100 100">
+
+          <circle
+            class="progress-background"
+            cx="50"
+            cy="50"
+            r="46">
+          </circle>
+
+          <circle
+            class="progress-bar"
+            id="progress"
+            cx="50"
+            cy="50"
+            r="46">
+          </circle>
+
+        </svg>
+
+
+        <div
+          class="timer"
+          id="timer">
+
+          25:00
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Message -->
+
+      <div
+        class="message"
+        id="message">
+
+        You don't need to do everything.
+        Just begin.
+
+      </div>
+
+
+
+      <!-- Buttons -->
+
+      <div class="controls">
+
+        <button
+          class="control start"
+          id="startBtn">
+
+          Start
+
+        </button>
+
+        <button
+          class="control secondary"
+          id="pauseBtn">
+
+          Pause
+
+        </button>
+
+        <button
+          class="control secondary"
+          id="resetBtn">
+
+          Reset
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Session -->
+
+      <div class="session-info">
+
+        <span>
+          SESSION <b id="session">01</b>
+        </span>
+
+        <span class="divider"></span>
+
+        <span id="status">
+          READY
+        </span>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         RIGHT SIDE
+         =================================================== -->
+
+    <section class="card side-card">
+
+
+      <div>
+
+        <div class="quote-mark">
+          “
+        </div>
+
+        <p class="quote">
+          Small steps still take you
+          somewhere beautiful.
+        </p>
+
+      </div>
+
+
+      <div class="stats">
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Current Mode
+          </div>
+
+          <div
+            class="stat-value"
+            id="modeText">
+
+            Focus
+
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Sessions Completed
+          </div>
+
+          <div
+            class="stat-value"
+            id="completed">
+
+            0
+
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Little Reminder
+          </div>
+
+          <div class="stat-value">
+            Be here. Not everywhere.
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <footer class="footer">
+
+    focus gently · rest completely · begin again
+
+  </footer>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   ⏱️ CHANGE TIMER TIMES HERE
+   ========================================================= */
+
+const FOCUS_TIME = 25 * 60;
+const BREAK_TIME = 5 * 60;
+
+
+/* =========================================================
+   💌 MESSAGES
+   ========================================================= */
+
+const focusMessages = [
+
+  "You don't need to do everything. Just begin.",
+
+  "One page. One problem. One moment at a time.",
+
+  "Quiet mind. Clear intention.",
+
+  "A little progress is still progress.",
+
+  "Future you will be glad you started.",
+
+  "Breathe in. Focus out.",
+
+  "This is your time. Protect it.",
+
+  "Put the noise aside. You've got this.",
+
+  "You don't need motivation. You just need to start.",
+
+  "Make this little moment count.",
+
+  "Twenty-five minutes. That's all you need right now.",
+
+  "Be where your feet are."
+
+];
+
+
+const breakMessages = [
+
+  "You did enough for this moment. Rest.",
+
+  "Breathe. Stretch. Let yourself reset.",
+
+  "Rest is part of the process.",
+
+  "Unclench your jaw. Drop your shoulders.",
+
+  "Drink some water. Take a little pause.",
+
+  "You don't have to be productive every second.",
+
+  "Let your mind wander for a while.",
+
+  "Five quiet minutes. No pressure.",
+
+  "Be gentle with yourself.",
+
+  "Your next session can wait. 🌷"
+
+];
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let timeLeft = FOCUS_TIME;
+
+let isFocusMode = true;
+
+let isRunning = false;
+
+let interval = null;
+
+let sessionNumber = 1;
+
+let completedSessions = 0;
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const timer =
+  document.getElementById("timer");
+
+const message =
+  document.getElementById("message");
+
+const status =
+  document.getElementById("status");
+
+const session =
+  document.getElementById("session");
+
+const completed =
+  document.getElementById("completed");
+
+const modeText =
+  document.getElementById("modeText");
+
+const progress =
+  document.getElementById("progress");
+
+const focusModeBtn =
+  document.getElementById("focusModeBtn");
+
+const breakModeBtn =
+  document.getElementById("breakModeBtn");
+
+const startBtn =
+  document.getElementById("startBtn");
+
+const pauseBtn =
+  document.getElementById("pauseBtn");
+
+const resetBtn =
+  document.getElementById("resetBtn");
+
+const focusInput =
+  document.getElementById("focusInput");
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+function updateDate() {
+
+  const now = new Date();
+
+  const dayName =
+    now.toLocaleDateString(
+      "en-US",
+      { weekday: "long" }
+    );
+
+  const date =
+    now.toLocaleDateString(
+      "en-US",
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+  document.getElementById("day")
+    .textContent = dayName;
+
+  document.getElementById("fullDate")
+    .textContent = date;
+
+}
+
+updateDate();
+
+
+/* =========================================================
+   PROGRESS CIRCLE
+   ========================================================= */
+
+const radius = 46;
+
+const circumference =
+  2 * Math.PI * radius;
+
+progress.style.strokeDasharray =
+  circumference;
+
+progress.style.strokeDashoffset =
+  0;
+
+
+/* =========================================================
+   DISPLAY TIMER
+   ========================================================= */
+
+function updateDisplay() {
+
+  const minutes =
+    Math.floor(timeLeft / 60);
+
+  const seconds =
+    timeLeft % 60;
+
+  timer.textContent =
+    `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+
+  const total =
+    isFocusMode
+      ? FOCUS_TIME
+      : BREAK_TIME;
+
+  const percentage =
+    timeLeft / total;
+
+  progress.style.strokeDashoffset =
+    circumference * (1 - percentage);
+
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+function showMessage() {
+
+  const messages =
+    isFocusMode
+      ? focusMessages
+      : breakMessages;
+
+  const random =
+    Math.floor(
+      Math.random() * messages.length
+    );
+
+  message.style.opacity = "0";
+
+  setTimeout(() => {
+
+    message.textContent =
+      messages[random];
+
+    message.style.opacity = "1";
+
+  }, 180);
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+function startTimer() {
+
+  if (isRunning) return;
+
+  isRunning = true;
+
+  status.textContent =
+    isFocusMode
+      ? "FOCUSING"
+      : "RESTING";
+
+
+  interval = setInterval(() => {
+
+    timeLeft--;
+
+    updateDisplay();
+
+    if (timeLeft <= 0) {
+
+      switchMode();
+
+    }
+
+  }, 1000);
+
+}
+
+
+/* =========================================================
+   PAUSE
+   ========================================================= */
+
+function pauseTimer() {
+
+  clearInterval(interval);
+
+  interval = null;
+
+  isRunning = false;
+
+  status.textContent = "PAUSED";
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+function resetTimer() {
+
+  clearInterval(interval);
+
+  interval = null;
+
+  isRunning = false;
+
+  isFocusMode = true;
+
+  timeLeft = FOCUS_TIME;
+
+  sessionNumber = 1;
+
+  completedSessions = 0;
+
+  session.textContent = "01";
+
+  completed.textContent = "0";
+
+  status.textContent = "READY";
+
+  modeText.textContent = "Focus";
+
+  focusModeBtn.classList.add("active");
+
+  breakModeBtn.classList.remove("active");
+
+  message.textContent =
+    "You don't need to do everything. Just begin.";
+
+  updateDisplay();
+
+}
+
+
+/* =========================================================
+   SWITCH FOCUS / BREAK
+   ========================================================= */
+
+function switchMode() {
+
+  clearInterval(interval);
+
+  interval = null;
+
+  isRunning = false;
+
+  playSound();
+
+
+  if (isFocusMode) {
+
+    /* Focus session finished */
+
+    completedSessions++;
+
+    completed.textContent =
+      completedSessions;
+
+  }
+
+
+  isFocusMode =
+    !isFocusMode;
+
+
+  if (isFocusMode) {
+
+    timeLeft = FOCUS_TIME;
+
+    sessionNumber++;
+
+    session.textContent =
+      String(sessionNumber).padStart(2, "0");
+
+    modeText.textContent = "Focus";
+
+    focusModeBtn.classList.add("active");
+
+    breakModeBtn.classList.remove("active");
+
+  }
+
+  else {
+
+    timeLeft = BREAK_TIME;
+
+    modeText.textContent = "Break";
+
+    breakModeBtn.classList.add("active");
+
+    focusModeBtn.classList.remove("active");
+
+  }
+
+
+  updateDisplay();
+
+  showMessage();
+
+  startTimer();
+
+}
+
+
+/* =========================================================
+   MANUAL MODE SWITCH
+   ========================================================= */
+
+function setFocusMode() {
+
+  clearInterval(interval);
+
+  interval = null;
+
+  isRunning = false;
+
+  isFocusMode = true;
+
+  timeLeft = FOCUS_TIME;
+
+  modeText.textContent = "Focus";
+
+  focusModeBtn.classList.add("active");
+
+  breakModeBtn.classList.remove("active");
+
+  status.textContent = "READY";
+
+  showMessage();
+
+  updateDisplay();
+
+}
+
+
+function setBreakMode() {
+
+  clearInterval(interval);
+
+  interval = null;
+
+  isRunning = false;
+
+  isFocusMode = false;
+
+  timeLeft = BREAK_TIME;
+
+  modeText.textContent = "Break";
+
+  breakModeBtn.classList.add("active");
+
+  focusModeBtn.classList.remove("active");
+
+  status.textContent = "READY";
+
+  showMessage();
+
+  updateDisplay();
+
+}
+
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+function playSound() {
+
+  try {
+
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    const audio =
+      new AudioContext();
+
+    const oscillator =
+      audio.createOscillator();
+
+    const gain =
+      audio.createGain();
+
+    oscillator.connect(gain);
+
+    gain.connect(audio.destination);
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.value = 660;
+
+    gain.gain.setValueAtTime(
+      0.18,
+      audio.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audio.currentTime + 1.2
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+      audio.currentTime + 1.2
+    );
+
+  }
+
+  catch (error) {
+
+    alert("Time's up 🍒");
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE TODAY'S FOCUS
+   ========================================================= */
+
+focusInput.addEventListener(
+  "input",
+  () => {
+
+    localStorage.setItem(
+      "sam-focus",
+      focusInput.value
+    );
+
+  }
+);
+
+
+/* Load saved focus */
+
+const savedFocus =
+  localStorage.getItem("sam-focus");
+
+if (savedFocus) {
+
+  focusInput.value =
+    savedFocus;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+startBtn.addEventListener(
+  "click",
+  startTimer
+);
+
+pauseBtn.addEventListener(
+  "click",
+  pauseTimer
+);
+
+resetBtn.addEventListener(
+  "click",
+  resetTimer
+);
+
+focusModeBtn.addEventListener(
+  "click",
+  setFocusMode
+);
+
+breakModeBtn.addEventListener(
+  "click",
+  setBreakMode
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+updateDisplay();
+
+</script>
+
+</body>
+</html>
